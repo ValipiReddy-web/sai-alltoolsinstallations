@@ -11,3 +11,31 @@ tar --exclude='/app/test/video/vendor/*' -cvzf  "test-date.tar.gz"  /root/test/b
 
 ls -t | head -n +3 --> it will show latest 3 files
 ls -t | tail -n +4 |xargs -I {} rm {} -->it will delete all files except latest 3  
+netstat -lntp | grep "htttpd or tomcat or "8080" 
+
+
+Grep : 
+grep 
+
+-i (ignore) =it ignores the case sensitive from searching pattern
+-n (number) =provide the line number to searching pattern
+-v (verbose) =it displays the non-searching pattern
+-c (count) =it counts the number of searching patterns
+-o(only)	=it displays only searching pattern
+
+
+
+Grep –I  “am” sample.txt 
+ Grep –v “am”  sample.txt 
+
+Grep  -o “hello sai how are you “   sample.txt  pattern search 
+
+Egrep = this command is used for to search multiple words,
+
+Egrep “am|linux|fine”  sample.txt 
+
+
+egrep "linux|unix|hello" hari
+
+
+
