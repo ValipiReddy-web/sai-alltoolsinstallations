@@ -1,0 +1,13 @@
+#MostUsefullCommands 
+kill -9 `ps aux | grep '8000' | awk {print $2}'`
+kill -9 `ps aux | grep '8092' | awk {print $2}'` 
+kill -9 `ps aux | grep 'gunicorn' | awk {print $2}'`
+du -sch * # Disk storage usage all folder and files 
+
+#Testing mail script
+echo "this is the test" | mailx -v -r "noreply@gmail.com"  -s "This is the testing mail"  -S smtp="a2smtp.bss.jio.com"  saipersonal.666@gmail.com 
+
+tar --exclude='/app/test/video/vendor/*' -cvzf  "test-date.tar.gz"  /root/test/backup 
+
+ls -t | head -n +3 --> it will show latest 3 files
+ls -t | tail -n +4 |xargs -I {} rm {} -->it will delete all files except latest 3  
