@@ -1,0 +1,48 @@
+#Apache installtion 
+
+yum install group install developement 
+yum install openssl-devel expat-devel pcre-devel apr-devel apr-devel 
+yum install gcc 
+
+#Download the apache 
+wget https://downloads.apache.org//httpd/httpd-2.4.43.tar.gz 
+
+cd /app/softwares/httpd-2.4.43/srclib 
+
+wget  https://downloads.apache.org/apr/apr-1.7.0.tar.gz 
+
+wget  https://downloads.apache.org/apr/apr-util-1.6.1.tar.gz 
+
+##export proxy
+export http_proxy=http://10.159.40.2:8080
+export https_proxy=http://10.159.40.2:8080
+
+steps:
+1 .tar -xvzf  httpd-2.4.43.tar.gz 
+cd httpd-2.4.43 
+cd srclib 
+mv apr-1.7.0  apr 
+mv apr-util-1.6.1  apr-util
+cd ..
+./configure --prefix=/app/httpd  --with-mpm-prefork 
+make
+make install 
+echo $? 
+/app/httpd/bin/apachectl -v 
+
+
+#Python installtion 
+
+#Download python
+wget  https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz 
+
+tar -xvzf  Python-3.7.4.tgz
+./configure --prefix=/app/python  --enable-optimizations 
+make
+make install
+
+echo $? 
+
+
+
+
