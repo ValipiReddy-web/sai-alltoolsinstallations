@@ -1,0 +1,98 @@
+#PHP installation 
+php - 8.2.5
+
+#yum install gcc –y
+#yum install gcc zlib zlib-devel libffi-devel openssl-devel expat-devel pcre-devel apr-devel apr-util-devel c++ make flex rpm-build pkgconfig gettext automake strace64 strace gdb bison libtool autoconf gcc-c++ binutils zlib* libffi-devel xz-devel python-devel postgresql-devel python36-devel for farm-haystack sqlite3 sqlite-devel bzip2-devel yajl-dev libsq3-devel.x86_64 python-devel mysql-devel zlib* –y
+#yum group install development
+#yum install openssl-devel expat-devel pcre-devel apr-devel apr-util-devel
+#yum install c++ make flex rpm-build pkgconfig gettext automake strace64 strace gdb bison libtool autoconf gcc-c++ binutils zlib* libffi-devel xz-devel -y
+#yum install python-devel postgresql-devel python36-devel for farm-haystack sqlite3 sqlite-devel bzip2-devel yajl-dev libsq3-devel.x86_64 -y
+#yum install -y oniguruma-devel
+#yum install python-devel mysql-devel -y
+#yum install libpng libpng-devel libjpeg libjpeg-devel libcurl* libzip* bzip2* libwebp* libXpm* freetype* libpq*
+#yum install openssl-devel expat-devel pcre-devel apr-devel apr-util-devel
+#yum install libxml2-devel gmp-dev libgmp-dev libicu libicu-devel libedit-* libreadline-* libxslt-devel openssl-devel expat-devel pcre-devel apr-devel apr-util-devel libpng libpng-devel libjpeg libjpeg-devel libcurl* libzip* bzip2* libwebp* libXpm* freetype* libpq*
+#yum install gmp-devel -y
+#yum -y install pcre-devel gcc openssl-devel expat-devel pcre-devel apr-devel apr-util-devel openssl-devel expat-devel pcre-devel apr-devel apr-util-devel -y
+#yum install openssl-devel expat-devel pcre-devel apr-devel apr-util-devel
+
+
+wget https://www.php.net/distributions/php-8.2.5.tar.gz
+
+tar -xzf php-8.2.5.tar.gz
+
+cd php-8.2.5
+
+
+'./configure' '--with-apxs2=/app/httpd/bin/apxs' '--prefix=/app/httpd/php' '--enable-mbstring' '--with-curl=/usr/lib64/' '--with-openssl' '--with-xmlrpc' '--enable-soap' '--with-jpeg-dir' '--with-png-dir' '--with-mysqli' '--with-pdo-mysql' '--enable-embedded-mysqli' '--with-pgsql' '--enable-pdo' '--with-xpm-dir=/usr/lib64/' '--with-webp-dir=/usr/lib64/' '--with-freetype-dir=/usr/lib64/' '--with-pcre-dir' '--enable-intl' '--with-xsl' '--with-bz2=/usr/bin/bzip2' '--enable-calendar' '--enable-exif' '--enable-ftp' '--with-gmp' '--with-mhash' '--enable-pcntl' '--enable-shmop' '--enable-sockets' '--with-zlib' '--with-libxml-dir=/usr/lib64/' '--enable-bcmath' '--enable-wddx' '--enable-sysvmsg' '--enable-sysvsem' '--enable-sysvshm' '--enable-gd' '--with-gd' '--enable-opcache' '--with-jpeg' '--with-webp' '--without-readline' '--with-libedit' '--with-igbinary' '--with-mcrypt' '--with-msgpack' '--enable-redis' '--with-redis' '--enable-fpm' '--enable-mysqlnd' '--with-pear' '--with-curl' '--with-gettext' '--with-icon-dir' '--enable-zip'
+
+make 
+
+make install
+
+----add in /app/binary/html or /app/httpd/htdocs and verify ------ index.php
+<?php
+phpinfo();
+?>
+
+
+-----in httpd.conf---
+
+comment #LoadModule php7_module        modules/libphp7.so
+
+
+
+===================REDIS==============
+
+RedisModule installation steps:
+-------------------------------
+cd /app/softwares/
+
+wget https://pecl.php.net/get/redis
+
+tar -xvf redis
+
+cd redis  -----go to directory------
+
+/app/httpd/php/bin/phpize
+
+./configure --with-php-config=/app/httpd/php/bin/php-config
+
+make
+
+make isntall
+
+echo "extension=  /app/httpd/php/lib/php/extensions/no-debug-non-zts-20220829/redis.so" >> /app/httpd/php/lib/php.ini
+                 ---------------------------------------------------------------------
+                       you will get this one on when you run the make install
+
+==========COMPOSER===========
+
+cd /app/softwares/
+
+wget https://getcomposer.org/download/2.5.7/composer.phar
+
+----go to root--------
+  # mv composer.phar /usr/local/bin/composer
+
+-----check in the path-----------
+  # ll /usr/local/bin/
+  #cd /usr/local/bin/ 
+  # chmod 755 /usr/local/bin/composer
+
+-------shift to user ------------
+#su mwapp
+
+add the httpd (appache) & php paths in   .bashrc    
+   Open this file 
+
+# ls -lart      ------- to open bash files -----------     
+vi .bashrc
+
+export PATH="$PATH:/usr/local/bin/"
+
+export PATH=$PATH:/data/httpd/php/bin/
+export PATH=$PATH:/data/httpd/bin/
+source .bashrc
+  # /usr/local/bin/composer -V (or) composer -V
+
