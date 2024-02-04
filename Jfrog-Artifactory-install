@@ -1,0 +1,16 @@
+Jfrong Artifactory 
+
+4cp  8gb ram is required 
+
+Ports: 8081 , 8082 it is running 
+
+Search in browser 
+jfrog oss download 
+
+https://jfrog.com/community/download-artifactory-oss/  --website 
+
+
+
+wget https://releases.jfrog.io/artifactory/artifactory-rpms/artifactory-rpms.repo -O jfrog-artifactory-rpms.repo;
+sudo mv jfrog-artifactory-rpms.repo /etc/yum.repos.d/;
+sudo yum update && sudo yum install jfrog-artifactory-oss
