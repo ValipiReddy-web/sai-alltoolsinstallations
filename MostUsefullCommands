@@ -15,6 +15,79 @@ ls -t | head -n +3 --> it will show latest 3 files
 ls -t | tail -n +4 |xargs -I {} rm {} -->it will delete all files except latest 3  
 netstat -lntp | grep "htttpd or tomcat or "8080" 
 
+#list the particular date and month files 
+
+ls -ltrh | awk '{print $6 " " $7,$9}' | grep "Nov"
+
+ls -ltrh | awk '{print $6 " " $7,$9}' | grep "Nov"  | head -n20  -->Nov month top 20 linees display
+
+rm -rf `ls -ltrh | awk '{print $6 " " $7,$9}' | grep Feb` 
+
+
+#disk usage 
+du -sch * 
+df -h 
+free -mh 
+find /data/mysql-dumps  -name "*.sql" -type f -mtime +15 -exec rm -rf {} \;
+
+##SSH and SCP 
+ssh test@ip "mkdir -p /home/ansadmin/backup"
+
+ ssh -qi /data/jenkins/pem/sit-bioscope.pem  centos@10.159.20.12  "sudo su - mwapp sh -c /home/mwapp/scripts/deploy.sh"
+
+sshpass -p 'ril@12345' ssh -T '-o StrictHostKeyChecking=no' admin@10.159.20.1 "sh -x  /home/mwapp/scripts/api-deploy.sh"
+
+
+#Retention 
+
+ssh ansadmin@ip "rm -rf  /data/backup/livetv/*`date -d '4 day ago' +%Y-%m-%d`"
+
+
+ssh ansadmin@ip "rm -rf  /data/backup/tv/`date -d '3 day ago' +%Y-%m-%d`"
+
+ssh ansadmin@ip "rm -rf  /data/backup/media/*`date -d '4 day ago' +%Y-%m-%d`"
+
+scp -r /data/scripts/folder/ mwapp@ip:/home/ansadmin
+
+
+#FOR LOOP 
+#backup
+for i in `cat sai-ip.txt` ; do ssh $i 'sh /app/scripts/backup.sh'; done 
+
+
+#Deploy 
+for i in `cat sai-ip.txt` ; do ssh $i 'sh /app/scripts/backup.sh'; done
+
+#SCP
+for -i in `cat sai-ip.txt`; do scp -rpv -o StrictHostKeyChecking=no /app/scripts/clone.sh  $i:/home/ansadmin/; done
+
+#check the ports is running  or not 
+for i in `cat sai-ip.txt` ; do ssh $i 'netstat -lntp | grep -i 8080'; done 
+
+#Kill the port all servers
+for i in `cat sai-ip.txt` ; do ssh $i 'kill -9 `ps aux | grep '8092' | awk '{print $2}'` '; done
+
+
+
+#For loop with key 
+for i in cat `apiips.txt` ;  do ssh  -i proda-bioscope-filet.pem  $i  ' sh /home/mwapp/scripts/api-deploy.sh'   ;  done
+
+for i in cat `apiips.txt` ;  do ssh  -i proda-bioscope-filet.pem  $i  ' sh /home/mwapp/scripts/api-backup.sh'   ;  done
+
+for i in cat `apiips.txt` ;  do ssh  -i proda-bioscope-filet.pem  $i ' /app/httpd/bin/apachetl –k  stop or start '   ;  done
+
+#SCP
+for i in cat `apiips.txt` ;  do scp  -i proda-bioscope-filet.pem   /app/config/app.config $i:/app/config/ 
+
+#How to connect to mysql 
+
+/mysqldata/mysqlbinary/mysql/bin/mysql -uroot -p'password' -S/mysqlsata/data/mysql.sock -A 
+
+/usr/local/mysql-8.0.29/bin/mysql -u oneplay -p'test@123' -S /var/lib/mysql-8.0.29/my
+sql.sock
+
+#how to take backup mysql DBS
+/usr/local/mysql-8.0.29/bin/mysqldump -u oneplay -p'test@123' -S /var/lib/mysql-8.0.29/mysql.sock   jiotv_plus  > /data/db_dumps-$date.sql 
 
 Grep : 
 grep 
